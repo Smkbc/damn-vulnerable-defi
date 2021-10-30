@@ -79,9 +79,7 @@ describe("[Challenge] The rewarder", function () {
 
   it("Exploit", async function () {
     /** YOUR EXPLOIT GOES HERE */
-    console.log(await this.rewarderPool.isNewRewardsRound());
     await time.increase(time.duration.days(5));
-    console.log(await this.rewarderPool.isNewRewardsRound());
 
     const hack = await HackReward.new(
       this.flashLoanPool.address,

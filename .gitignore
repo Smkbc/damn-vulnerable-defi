@@ -3,3 +3,4 @@ build
 contracts/attacker-contracts/*.sol
 *.solved.js
 cache
+package-lock.json

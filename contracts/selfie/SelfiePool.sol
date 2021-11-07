@@ -63,7 +63,6 @@ contract HackSelfie {
 
     uint public actionId;
 
-
     constructor(address _token, address _pool, address _gov) public {
         token = DamnValuableTokenSnapshot(_token);
         pool = SelfiePool(_pool);
